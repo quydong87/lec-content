@@ -260,7 +260,8 @@
                 <p>To provide automated video publishing features, <strong>LeC Content</strong> requests specific permissions through the TikTok OAuth 2.0 flow. We access the following information:</p>
                 <ul>
                     <li><strong>Basic Profile Information (user.info.basic scope):</strong> We access your TikTok username and profile icon to display your connected channel inside the LeC Content local management panel.</li>
-                    <li><strong>Video Upload Permission (video.publish scope):</strong> We access this permission to programmatically initialize, upload, and schedule video content from LeC Studio onto your connected TikTok account.</li>
+                    <li><strong>Video Upload Initialization (video.upload scope):</strong> We use this permission to initialize the direct-post video upload process via the TikTok Content Posting API before the video is finalized.</li>
+                    <li><strong>Video Publish Permission (video.publish scope):</strong> We use this permission to finalize and publish the prepared video content to your connected TikTok account after authorization.</li>
                 </ul>
 
                 <h2>3. How We Store and Protect Your Data</h2>
@@ -277,11 +278,19 @@
                     <li>Deleting the locally stored token file (<code>tokens.json</code>) from your installation directory, which immediately destroys all access credentials.</li>
                 </ul>
 
-                <h2>6. Changes to This Policy</h2>
+                <h2>6. Data Retention</h2>
+                <p>Since LeC Content operates entirely locally, data is retained on the host machine for as long as the software is installed and in use. Specifically:</p>
+                <ul>
+                    <li><strong>OAuth Access Tokens:</strong> Stored locally and valid until revoked by the user or expired by TikTok (typically 24 hours for access tokens). Refresh tokens are stored until manually deleted.</li>
+                    <li><strong>Publishing Logs:</strong> Activity logs stored in the local SQLite database (<code>reporting.db</code>) are retained for operational auditing purposes and may be deleted at any time by the user.</li>
+                    <li><strong>No cloud retention:</strong> We do not retain any of your data on external or cloud servers. All data is under the direct control of the user on their local machine.</li>
+                </ul>
+
+                <h2>7. Changes to This Policy</h2>
                 <p>We may update this Privacy Policy from time to time to reflect changes in our operational procedures or regulations. Any changes will be posted directly on this page with an updated modification date.</p>
 
-                <h2>7. Contact Us</h2>
-                <p>If you have any questions or concerns regarding this Privacy Policy, please contact our internal IT department or reach us via email at <code>admin@lecdancestudio.com</code>.</p>
+                <h2>8. Contact Us</h2>
+                <p>If you have any questions or concerns regarding this Privacy Policy, please contact the LeC Studio development team via email at <code>hoangmanhthang2312@gmail.com</code>.</p>
             </div>
         </div>
     </main>
