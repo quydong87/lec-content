@@ -3,413 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeC Content - Automated Video Publisher & Scheduler</title>
-    <meta name="description" content="LeC Content is an internal content management system and scheduler for publishing, editing, and syndicating video content automatically to TikTok channels.">
-    <!-- Google Fonts -->
+    <title>LeC Content - Automated Video Publisher &amp; Scheduler</title>
+    <meta name="description" content="LeC Content is a professional content management system built for LeC Studio to manage and publish video content across 5 brand channels on TikTok efficiently.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0c0c0e;
-            --card-bg: rgba(26, 26, 36, 0.65);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            --secondary-gradient: linear-gradient(135deg, #ff007f 0%, #ff5252 100%);
-            --glow-color: rgba(0, 242, 254, 0.15);
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Inter', sans-serif;
+            --bg: #09090b;
+            --bg2: #111114;
+            --card: rgba(22, 22, 30, 0.7);
+            --border: rgba(255,255,255,0.07);
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --cyan: #00f2fe;
+            --pink: #ff3cac;
+            --grad: linear-gradient(135deg, #00f2fe, #4facfe);
+            --grad2: linear-gradient(135deg, #ff3cac, #ff5252);
+            --font-d: 'Outfit', sans-serif;
+            --font-b: 'Inter', sans-serif;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            line-height: 1.6;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-b);
+            line-height: 1.65;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
         }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Header */
-        header {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--secondary-gradient);
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 8rem 0 6rem 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
+        body::before {
             content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: var(--primary-gradient);
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
-            z-index: -1;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            color: #00f2fe;
-        }
-
-        h1 {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        h1 span {
-            background: linear-gradient(135deg, #00f2fe 0%, #ff007f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 3rem auto;
-            font-weight: 300;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary-gradient);
-            color: #000;
-            font-family: var(--font-display);
-            font-weight: 700;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.35);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .section-title p {
-            color: var(--text-secondary);
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            position: fixed; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 10% 10%, rgba(0,242,254,.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 90% 85%, rgba(255,60,172,.06) 0%, transparent 60%);
             pointer-events: none;
         }
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 242, 254, 0.25);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 254, 0.05);
+        /* ── HEADER ── */
+        header {
+            position: sticky; top: 0; z-index: 200;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border);
+            background: rgba(9,9,11,.85);
+            backdrop-filter: blur(20px);
         }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(0, 242, 254, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            color: #00f2fe;
-            font-size: 1.5rem;
+        .hdr { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+        .logo {
+            font-family: var(--font-d); font-size: 1.55rem; font-weight: 800;
+            background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: flex; align-items: center; gap: .4rem; white-space: nowrap;
         }
+        .logo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--grad2); display: inline-block; }
+        nav { display: flex; gap: 2rem; }
+        nav a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .25s; }
+        nav a:hover { color: var(--text); }
 
-        .card.alt .card-icon {
-            background: rgba(255, 0, 127, 0.1);
-            border-color: rgba(255, 0, 127, 0.2);
-            color: #ff007f;
+        /* ── HERO ── */
+        .hero { padding: 7rem 0 5rem; text-align: center; }
+        .badge {
+            display: inline-flex; align-items: center; gap: .5rem;
+            border: 1px solid rgba(0,242,254,.25); border-radius: 999px;
+            padding: .35rem 1rem; font-size: .78rem; font-weight: 600; letter-spacing: .04em;
+            color: var(--cyan); background: rgba(0,242,254,.06); margin-bottom: 2rem;
+            text-transform: uppercase;
         }
-
-        .card h3 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+        .hero h1 {
+            font-family: var(--font-d); font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800;
+            line-height: 1.1; letter-spacing: -.02em; margin-bottom: 1.5rem;
         }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 300;
+        .hero h1 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-sub {
+            max-width: 680px; margin: 0 auto 2.5rem;
+            color: var(--muted); font-size: 1.1rem; font-weight: 300;
         }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--card-border);
-            padding: 4rem 0 3rem 0;
-            background: rgba(10, 10, 12, 0.95);
+        .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 2rem; border-radius: 10px; font-weight: 600; font-size: .95rem;
+            text-decoration: none; transition: all .25s; cursor: pointer;
         }
-
-        .footer-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
+        .btn-primary {
+            background: var(--grad); color: #000;
+            box-shadow: 0 0 30px rgba(0,242,254,.2);
         }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(0,242,254,.35); }
+        .btn-outline { border: 1px solid var(--border); color: var(--muted); background: var(--card); }
+        .btn-outline:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
 
-        .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .copyright {
-            width: 100%;
+        /* ── STATS BAR ── */
+        .stats {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 2rem; margin: 3rem 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem;
             text-align: center;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.85rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 2rem;
+        }
+        .stat-n {
+            font-family: var(--font-d); font-size: 2.2rem; font-weight: 800;
+            background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-l { color: var(--muted); font-size: .82rem; margin-top: .3rem; }
+
+        /* ── SECTION TITLE ── */
+        .sec-title { text-align: center; margin-bottom: 3.5rem; }
+        .sec-label {
+            font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+            color: var(--cyan); margin-bottom: .8rem;
+        }
+        .sec-title h2 {
+            font-family: var(--font-d); font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800; letter-spacing: -.01em; margin-bottom: .8rem;
+        }
+        .sec-title p { color: var(--muted); max-width: 560px; margin: 0 auto; font-weight: 300; }
+
+        /* ── SECTION SPACING ── */
+        section { padding: 5rem 0; }
+        section + section { border-top: 1px solid var(--border); }
+
+        /* ── ABOUT ── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        @media(max-width:768px){ .about-grid { grid-template-columns: 1fr; } }
+        .about-text h2 {
+            font-family: var(--font-d); font-size: 2rem; font-weight: 800;
+            margin-bottom: 1rem; letter-spacing: -.01em;
+        }
+        .about-text h2 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-text p { color: var(--muted); margin-bottom: 1rem; font-weight: 300; }
+        .about-text ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-top: 1.2rem; }
+        .about-text li { display: flex; align-items: flex-start; gap: .7rem; color: var(--muted); font-size: .92rem; }
+        .about-text li::before { content: '✓'; color: var(--cyan); font-weight: 700; flex-shrink: 0; margin-top: .1rem; }
+        .about-visual {
+            background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+        }
+        .brand-tag {
+            display: flex; align-items: center; gap: .8rem; padding: .8rem 1rem;
+            background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 10px;
+            font-size: .88rem; font-weight: 500;
+        }
+        .brand-icon { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; font-size: 1rem; flex-shrink: 0; }
+        .brand-sub { color: var(--muted); font-size: .75rem; margin-top: .15rem; }
+
+        /* ── WHY API ── */
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .problem-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 1.8rem; transition: border-color .25s, transform .25s;
+        }
+        .problem-card:hover { border-color: rgba(0,242,254,.25); transform: translateY(-3px); }
+        .problem-card .icon { font-size: 1.8rem; margin-bottom: 1rem; }
+        .problem-card h3 { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; margin-bottom: .7rem; }
+        .problem-card p { color: var(--muted); font-size: .88rem; font-weight: 300; line-height: 1.6; }
+        .problem-card .highlight { color: var(--cyan); font-weight: 600; }
+
+        /* ── WORKFLOW ── */
+        .workflow { display: flex; flex-direction: column; gap: 1px; max-width: 760px; margin: 0 auto; }
+        .wf-step {
+            display: flex; gap: 1.5rem; align-items: flex-start;
+            padding: 1.5rem; background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; transition: border-color .25s;
+        }
+        .wf-step:hover { border-color: rgba(0,242,254,.2); }
+        .wf-num {
+            width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+            background: var(--grad); display: grid; place-items: center;
+            font-family: var(--font-d); font-weight: 800; font-size: .9rem; color: #000;
+        }
+        .wf-step h3 { font-family: var(--font-d); font-weight: 700; margin-bottom: .35rem; font-size: 1rem; }
+        .wf-step p { color: var(--muted); font-size: .88rem; font-weight: 300; }
+        .wf-connector { width: 1px; height: 20px; background: var(--border); margin: 0 auto; }
+
+        /* ── FEATURES ── */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+        .feat {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 1.8rem; transition: all .25s;
+        }
+        .feat:hover { transform: translateY(-3px); border-color: rgba(0,242,254,.2); }
+        .feat-icon {
+            width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center;
+            font-size: 1.3rem; margin-bottom: 1.1rem;
+            background: rgba(0,242,254,.08); border: 1px solid rgba(0,242,254,.15);
+        }
+        .feat h3 { font-family: var(--font-d); font-size: 1rem; font-weight: 700; margin-bottom: .55rem; }
+        .feat p { color: var(--muted); font-size: .87rem; font-weight: 300; line-height: 1.65; }
+        .feat-scope {
+            display: inline-block; margin-top: .8rem; padding: .25rem .65rem;
+            background: rgba(0,242,254,.06); border: 1px solid rgba(0,242,254,.15);
+            border-radius: 6px; font-size: .72rem; font-weight: 600; color: var(--cyan); letter-spacing: .04em;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            .header-wrap, .footer-wrap {
-                flex-direction: column;
-                text-align: center;
-            }
-            nav {
-                margin-top: 1.5rem;
-            }
-            nav a {
-                margin: 0 1rem;
-            }
-            .footer-links {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .footer-links a {
-                margin-left: 0;
-            }
+        /* ── API NEED ── */
+        .api-need {
+            background: linear-gradient(135deg, rgba(0,242,254,.06) 0%, rgba(79,172,254,.06) 100%);
+            border: 1px solid rgba(0,242,254,.15); border-radius: 20px; padding: 3rem;
+        }
+        .api-need h2 { font-family: var(--font-d); font-size: 1.7rem; font-weight: 800; margin-bottom: 1rem; }
+        .api-need h2 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .api-need p { color: var(--muted); margin-bottom: 1rem; font-weight: 300; }
+        .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+        @media(max-width:600px){ .comparison { grid-template-columns: 1fr; } }
+        .cmp-col { border-radius: 14px; padding: 1.5rem; }
+        .cmp-col.bad { background: rgba(255,82,82,.06); border: 1px solid rgba(255,82,82,.15); }
+        .cmp-col.good { background: rgba(0,242,254,.06); border: 1px solid rgba(0,242,254,.15); }
+        .cmp-head { font-family: var(--font-d); font-weight: 700; font-size: .95rem; margin-bottom: 1rem; }
+        .cmp-col.bad .cmp-head { color: #ff5252; }
+        .cmp-col.good .cmp-head { color: var(--cyan); }
+        .cmp-item { display: flex; gap: .6rem; font-size: .86rem; color: var(--muted); margin-bottom: .6rem; align-items: flex-start; }
+        .cmp-item::before { flex-shrink: 0; margin-top: .1rem; }
+        .cmp-col.bad .cmp-item::before { content: '✗'; color: #ff5252; }
+        .cmp-col.good .cmp-item::before { content: '✓'; color: var(--cyan); }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border); padding: 3rem 0 2.5rem;
+            background: rgba(9,9,11,.97);
+        }
+        .ftr { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+        .ftr-logo { font-family: var(--font-d); font-size: 1.3rem; font-weight: 800; color: var(--text); }
+        .ftr-links { display: flex; gap: 2rem; }
+        .ftr-links a { color: var(--muted); text-decoration: none; font-size: .88rem; transition: color .25s; }
+        .ftr-links a:hover { color: var(--text); }
+        .ftr-copy { width: 100%; text-align: center; color: rgba(255,255,255,.25); font-size: .8rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+
+        @media(max-width:768px){
+            .hdr { flex-direction: column; gap: 1rem; }
+            nav { gap: 1rem; }
+            .comparison { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container header-wrap">
-            <div class="logo">
-                LeC Content <span class="logo-dot"></span>
+<header>
+    <div class="container hdr">
+        <div class="logo">LeC Content <span class="logo-dot"></span></div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#why-api">Why API</a>
+            <a href="#features">Features</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge"><span class="badge-dot"></span> Multi-Brand Content Management System</div>
+            <h1>One Platform to Publish<br><span>5 Brands. Daily. Automatically.</span></h1>
+            <p class="hero-sub">LeC Content is an internal publishing system built for LeC Studio — a professional dance and modeling academy operating 5 distinct talent brands across Vietnam. It enables their team to manage high-frequency TikTok publishing without manual repetition.</p>
+            <div class="btn-row">
+                <a href="#why-api" class="btn btn-primary">See Why We Need TikTok API</a>
+                <a href="#features" class="btn btn-outline">View Features</a>
             </div>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-            </nav>
+
+            <div class="stats">
+                <div>
+                    <div class="stat-n">5</div>
+                    <div class="stat-l">Active Brand Channels</div>
+                </div>
+                <div>
+                    <div class="stat-n">35+</div>
+                    <div class="stat-l">Videos Published / Week</div>
+                </div>
+                <div>
+                    <div class="stat-n">3</div>
+                    <div class="stat-l">Platforms Managed</div>
+                </div>
+                <div>
+                    <div class="stat-n">100%</div>
+                    <div class="stat-l">Original Brand Content</div>
+                </div>
+                <div>
+                    <div class="stat-n">500+</div>
+                    <div class="stat-l">Students &amp; Talents</div>
+                </div>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="badge">
-                    <span>⚡ Internal Content Automation</span>
+    <!-- ── ABOUT ── -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>About <span>LeC Studio</span></h2>
+                    <p>LeC Studio is a professional performing arts and talent development academy based in Vietnam, specializing in dance choreography, child modeling, and pageant preparation. Founded by Ms. Lệ Châu, the studio currently operates five distinct talent brands targeting different age groups and specializations.</p>
+                    <p>Each brand produces its own unique video content — showcasing student performances, competition highlights, class previews, and behind-the-scenes footage — and needs to publish to TikTok consistently to grow its audience and attract new enrollments.</p>
+                    <ul>
+                        <li>Original performance videos produced by instructors and students</li>
+                        <li>5 separate TikTok channels, each with a unique audience and content type</li>
+                        <li>Content is sourced exclusively from LeC Studio's own Facebook Business Pages</li>
+                        <li>No third-party or user-generated content is involved</li>
+                    </ul>
                 </div>
-                <h1>Empowering Creators with<br><span>LeC Content</span></h1>
-                <p>An internal content management solution and scheduler built for LeC Studio. Automate, schedule, and publish video content directly to connected TikTok channels with high-performance workflows.</p>
-                <a href="#features" class="btn">Explore Features</a>
+                <div class="about-visual">
+                    <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Our 5 Brand Channels</div>
+                    <div class="brand-tag">
+                        <div class="brand-icon" style="background:rgba(0,242,254,.1);color:var(--cyan);">💃</div>
+                        <div>
+                            <div>LeC Dance Studio</div>
+                            <div class="brand-sub">Professional dance choreography · All ages</div>
+                        </div>
+                    </div>
+                    <div class="brand-tag">
+                        <div class="brand-icon" style="background:rgba(255,220,0,.08);color:#ffd700;">⭐</div>
+                        <div>
+                            <div>LeC Kids Talents</div>
+                            <div class="brand-sub">Talent showcasing for children · Ages 4–15</div>
+                        </div>
+                    </div>
+                    <div class="brand-tag">
+                        <div class="brand-icon" style="background:rgba(255,60,172,.08);color:var(--pink);">👑</div>
+                        <div>
+                            <div>C.Model Kids</div>
+                            <div class="brand-sub">Child modeling &amp; runway training · Ages 4–15</div>
+                        </div>
+                    </div>
+                    <div class="brand-tag">
+                        <div class="brand-icon" style="background:rgba(160,80,255,.08);color:#a050ff;">💎</div>
+                        <div>
+                            <div>C.Model Lady</div>
+                            <div class="brand-sub">Adult women modeling &amp; styling · Ages 18+</div>
+                        </div>
+                    </div>
+                    <div class="brand-tag">
+                        <div class="brand-icon" style="background:rgba(0,200,100,.08);color:#00c864;">🌏</div>
+                        <div>
+                            <div>Siêu Mẫu Toàn Cầu</div>
+                            <div class="brand-sub">International pageant &amp; supermodel · All ages</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="features" class="features">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Advanced Capabilities</h2>
-                    <p>Enables authorized users to manage their original content workflows across their owned TikTok channels in full compliance with platform policies.</p>
+    <!-- ── WHY API ── -->
+    <section id="why-api">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sec-label">Business Justification</div>
+                <h2>Why LeC Studio Needs the TikTok Content Posting API</h2>
+                <p>Managing five active brand channels with daily content is impossible to sustain manually. Here is the exact operational challenge we are solving.</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">📊</div>
+                    <h3>High Publishing Volume Across 5 Channels</h3>
+                    <p>LeC Studio produces <span class="highlight">35+ original videos per week</span> across its 5 brands. Each video needs to be published to the correct TikTok channel with a unique caption, hashtags, and timing. Manual publishing requires a dedicated staff member spending 2–3 hours daily just on TikTok uploads — an unsustainable cost for a mid-sized training academy.</p>
                 </div>
-                <div class="grid">
-                    <div class="card">
-                        <div class="card-icon">⚡</div>
-                        <h3>Cross-Platform Publishing</h3>
-                        <p>Enables authorized users to publish their own original video content — sourced exclusively from their own Facebook Business Pages — to their own connected TikTok accounts via the official TikTok Content Posting API.</p>
+                <div class="problem-card">
+                    <div class="icon">⏰</div>
+                    <h3>Time-Sensitive Publishing Windows</h3>
+                    <p>TikTok's algorithm heavily rewards content published during peak engagement hours. LeC Studio's audience is most active in the <span class="highlight">6–8 AM and 7–9 PM windows</span>. Without API-based scheduling, instructors would need to manually post at these exact times, which conflicts with their teaching schedules. API scheduling is not a convenience — it is a necessity for reaching students.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">🎯</div>
+                    <h3>Brand-Specific Caption Requirements</h3>
+                    <p>Each of the 5 brands requires <span class="highlight">different hashtag sets, different tones, and different calls-to-action</span> in their captions. Content for child talent channels (C.Model Kids) must be worded completely differently from adult content (C.Model Lady). Manually rewriting captions for each post is error-prone and time-consuming. LeC Content automates this accurately and consistently.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">🔁</div>
+                    <h3>Cross-Platform Content Synchronization</h3>
+                    <p>LeC Studio's primary content originates on Facebook Business Pages (due to event-based posting patterns). The same performance video must then be published to the corresponding TikTok channel. Without API access, this requires <span class="highlight">manually downloading, re-uploading, and recaptioning every video</span> — a process that is repeated 35+ times per week.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">🛡️</div>
+                    <h3>Compliance &amp; Safety for Child Content</h3>
+                    <p>Three of LeC Studio's five brands feature content involving minors (ages 4–15). <span class="highlight">Strict content policies</span> must be enforced at every upload — correct age-appropriate descriptions, no personal details, no location data. LeC Content enforces these rules automatically as part of the publishing pipeline, reducing human error risk.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">📈</div>
+                    <h3>Growth Requires Consistency</h3>
+                    <p>TikTok's algorithm favors accounts that post consistently. LeC Studio's analysis shows their channels grow <span class="highlight">3–5× faster when posting daily</span> versus sporadic manual uploads. Achieving daily posting across 5 channels simultaneously is only feasible through an automated, API-based publishing pipeline.</p>
+                </div>
+            </div>
+
+            <!-- Comparison -->
+            <div class="api-need" style="margin-top: 3rem;">
+                <h2>Without API vs. <span>With LeC Content API Access</span></h2>
+                <p>Here is a concrete side-by-side comparison of LeC Studio's workflow, demonstrating why the TikTok Content Posting API is essential — not optional — for their operations.</p>
+                <div class="comparison">
+                    <div class="cmp-col bad">
+                        <div class="cmp-head">❌ Without API (Current Manual Process)</div>
+                        <div class="cmp-item">Download each video from Facebook manually</div>
+                        <div class="cmp-item">Open TikTok app, select account (switch between 5 accounts)</div>
+                        <div class="cmp-item">Re-upload video, wait for processing</div>
+                        <div class="cmp-item">Manually type caption and brand-specific hashtags</div>
+                        <div class="cmp-item">Repeat 5–7 times per day, 7 days a week</div>
+                        <div class="cmp-item">Miss peak posting windows due to teaching schedule</div>
+                        <div class="cmp-item">Human error risk: wrong account, wrong caption</div>
+                        <div class="cmp-item">~3 hours of manual labor per day for uploads alone</div>
                     </div>
-                    <div class="card alt">
-                        <div class="card-icon">📅</div>
-                        <h3>Scheduled Posting</h3>
-                        <p>Lets operators schedule their own video content to be published at peak engagement times. All posts are made only to TikTok accounts that the user has explicitly authorized via OAuth 2.0.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🤖</div>
-                        <h3>AI Caption Assistant</h3>
-                        <p>Assists authorized users in drafting captions for their own original content using AI. Captions are generated based solely on the operator's own source text, and are reviewed before publishing.</p>
-                    </div>
-                    <div class="card alt">
-                        <div class="card-icon">📊</div>
-                        <h3>Publishing Logs</h3>
-                        <p>Maintains a local activity log of all publishing actions performed via the TikTok API on behalf of the authorized user. No third-party data is collected or stored.</p>
+                    <div class="cmp-col good">
+                        <div class="cmp-head">✅ With TikTok Content Posting API</div>
+                        <div class="cmp-item">System automatically detects new videos on owned Facebook pages</div>
+                        <div class="cmp-item">Routes each video to the correct authorized TikTok channel</div>
+                        <div class="cmp-item">AI generates brand-appropriate caption + hashtags per brand rules</div>
+                        <div class="cmp-item">Schedules post for optimal engagement window</div>
+                        <div class="cmp-item">Publishes via official TikTok API — fully compliant</div>
+                        <div class="cmp-item">Logs every action for audit and team review</div>
+                        <div class="cmp-item">Zero manual errors, consistent brand voice</div>
+                        <div class="cmp-item">Instructors focus on teaching, not social media logistics</div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="container footer-wrap">
+    <!-- ── WORKFLOW ── -->
+    <section id="workflow">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sec-label">How It Works</div>
+                <h2>Publishing Workflow</h2>
+                <p>A transparent, step-by-step view of exactly how LeC Content uses the TikTok API to post on behalf of authorized LeC Studio channels.</p>
+            </div>
+            <div class="workflow">
+                <div class="wf-step">
+                    <div class="wf-num">1</div>
+                    <div>
+                        <h3>Content Detection</h3>
+                        <p>LeC Content monitors LeC Studio's own Facebook Business Pages for newly published videos. Only videos from authorized, operator-owned pages are eligible for processing.</p>
+                    </div>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-step">
+                    <div class="wf-num">2</div>
+                    <div>
+                        <h3>Brand Classification &amp; Caption Generation</h3>
+                        <p>The system identifies which of the 5 LeC brands the video belongs to and generates an appropriate TikTok caption using brand-specific rules. No captions are published without operator review.</p>
+                    </div>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-step">
+                    <div class="wf-num">3</div>
+                    <div>
+                        <h3>TikTok OAuth Authorization</h3>
+                        <p>The operator authenticates each brand's TikTok account via the official TikTok OAuth 2.0 flow. LeC Content only acts on accounts that have explicitly granted permission using <code style="background:rgba(0,242,254,.08);padding:.1rem .4rem;border-radius:4px;font-size:.85em;color:var(--cyan)">video.upload</code> and <code style="background:rgba(0,242,254,.08);padding:.1rem .4rem;border-radius:4px;font-size:.85em;color:var(--cyan)">video.publish</code> scopes.</p>
+                    </div>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-step">
+                    <div class="wf-num">4</div>
+                    <div>
+                        <h3>Scheduled API Upload</h3>
+                        <p>Using the TikTok Content Posting API, the video is uploaded to the authorized account at the scheduled time. The API handles chunked upload and finalizes the post with the approved caption.</p>
+                    </div>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-step">
+                    <div class="wf-num">5</div>
+                    <div>
+                        <h3>Logging &amp; Confirmation</h3>
+                        <p>Every publish action is logged locally with timestamp, video ID, brand channel, and success/failure status. The LeC Studio team can review, audit, or delete any log entry at any time from the internal dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FEATURES ── -->
+    <section id="features">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sec-label">Platform Capabilities</div>
+                <h2>What LeC Content Does</h2>
+                <p>Each feature is designed around a real operational need of LeC Studio's multi-brand content team.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feat">
+                    <div class="feat-icon">🚀</div>
+                    <h3>Cross-Platform Publishing</h3>
+                    <p>Publishes the operator's own original videos — sourced exclusively from their own Facebook Business Pages — to their authorized TikTok brand channels via the official TikTok Content Posting API.</p>
+                    <span class="feat-scope">video.upload · video.publish</span>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">📅</div>
+                    <h3>Intelligent Scheduled Posting</h3>
+                    <p>Queues and publishes videos during peak audience engagement windows specific to each brand's followers. All posts are made only to accounts explicitly authorized by the operator via OAuth 2.0.</p>
+                    <span class="feat-scope">video.publish</span>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🤖</div>
+                    <h3>AI Caption Assistant</h3>
+                    <p>Generates TikTok-optimized captions from the operator's own source post text. Each brand has its own caption rules (tone, hashtags, CTA). Captions are always reviewed by the operator before publish.</p>
+                    <span class="feat-scope">No extra scope required</span>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🏷️</div>
+                    <h3>Multi-Brand Channel Router</h3>
+                    <p>Automatically routes each video to the correct TikTok channel based on which LeC brand it belongs to. Prevents posting child content to adult channels or vice versa — a critical compliance requirement.</p>
+                    <span class="feat-scope">user.info.basic</span>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">📊</div>
+                    <h3>Publishing Audit Log</h3>
+                    <p>Maintains a complete, locally-stored audit trail of all publishing actions performed on each TikTok channel. The operator can inspect, export, or delete all log data at any time.</p>
+                    <span class="feat-scope">Local storage only</span>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🛡️</div>
+                    <h3>Content Safety Filters</h3>
+                    <p>Enforces brand-level safety rules before every upload: appropriate descriptions for child content, duration limits, deduplication to prevent accidental double-posts, and TikTok Community Guideline compliance checks.</p>
+                    <span class="feat-scope">Built-in pre-publish validation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── API SCOPES SUMMARY ── -->
+    <section>
+        <div class="container">
+            <div class="sec-title">
+                <div class="sec-label">API Scope Justification</div>
+                <h2>Permissions Requested &amp; Why</h2>
+                <p>LeC Content requests the minimum set of TikTok API permissions required for its publishing workflow. No read access to followers, comments, or analytics is requested.</p>
+            </div>
+            <div class="problem-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="problem-card">
+                    <div class="icon">👤</div>
+                    <h3><code style="color:var(--cyan)">user.info.basic</code></h3>
+                    <p><strong style="color:var(--text)">What it does:</strong> Reads the TikTok account username and profile picture.<br><br><strong style="color:var(--text)">Why we need it:</strong> Displayed in the LeC Content dashboard so the operator can confirm which TikTok account is connected before publishing. Prevents posting to the wrong brand channel.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">📤</div>
+                    <h3><code style="color:var(--cyan)">video.upload</code></h3>
+                    <p><strong style="color:var(--text)">What it does:</strong> Initializes the video upload to TikTok's servers before the post is finalized.<br><br><strong style="color:var(--text)">Why we need it:</strong> Required first step in the TikTok Direct Post API flow. Without this scope, video data cannot be sent to TikTok's upload endpoint before being published.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">✅</div>
+                    <h3><code style="color:var(--cyan)">video.publish</code></h3>
+                    <p><strong style="color:var(--text)">What it does:</strong> Finalizes and publishes the uploaded video as a TikTok post with the approved caption and scheduled time.<br><br><strong style="color:var(--text)">Why we need it:</strong> Core permission enabling LeC Content to fulfill its primary function: publishing LeC Studio's original video content to their own authorized TikTok channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="ftr">
             <div>
-                <div class="footer-logo">LeC Content</div>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px;">Internal post management and scheduling system for LeC Studio channels.</p>
+                <div class="ftr-logo">LeC Content</div>
+                <p style="color:var(--muted);font-size:.82rem;margin-top:.4rem;max-width:320px;">An internal content publishing system for LeC Studio's 5 talent brand channels. Built for operational efficiency and TikTok API compliance.</p>
             </div>
-            <div class="footer-links">
+            <div class="ftr-links">
                 <a href="privacy-policy.html">Privacy Policy</a>
                 <a href="terms-of-service.html">Terms of Service</a>
             </div>
-            <div class="copyright">
-                &copy; 2026 LeC Studio. All rights reserved. "LeC Content" is an internal automation software.
-            </div>
         </div>
-    </footer>
+        <div class="ftr-copy">
+            &copy; 2026 LeC Studio. All rights reserved. &nbsp;·&nbsp; Contact: <a href="mailto:thanghm388@gmail.com" style="color:var(--muted);text-decoration:none;">thanghm388@gmail.com</a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
