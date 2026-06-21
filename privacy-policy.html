@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - LeC Content</title>
+    <meta name="description" content="Privacy Policy for LeC Content integration with TikTok Content Posting API.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0c0c0e;
+            --card-bg: rgba(26, 26, 36, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff007f 0%, #ff5252 100%);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Content Section */
+        .content {
+            padding: 5rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 3rem;
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00f2fe;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 4rem 0 3rem 0;
+            background: rgba(10, 10, 12, 0.95);
+            margin-top: 5rem;
+        }
+
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .content-box {
+                padding: 1.5rem;
+            }
+            .header-wrap, .footer-wrap {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 1.5rem;
+            }
+            nav a {
+                margin: 0 1rem;
+            }
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .footer-links a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-wrap">
+            <a href="index.html" class="logo">
+                LeC Content <span class="logo-dot"></span>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="privacy-policy.html" style="color: #ffffff;">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p class="meta">Last updated: June 21, 2026</p>
+
+            <div class="content-box">
+                <h2>1. Overview</h2>
+                <p>Welcome to <strong>LeC Content</strong>, an internal content automation and management tool developed for <strong>LeC Studio</strong>. We respect your privacy and are committed to protecting the personal data of our users who connect their TikTok channels to our system.</p>
+                <p>This Privacy Policy explains how <strong>LeC Content</strong> collects, uses, stores, and protects data when you use our application, specifically in connection with the TikTok Content Posting API.</p>
+
+                <h2>2. Data We Collect and Access</h2>
+                <p>To provide automated video publishing features, <strong>LeC Content</strong> requests specific permissions through the TikTok OAuth 2.0 flow. We access the following information:</p>
+                <ul>
+                    <li><strong>Basic Profile Information (user.info.basic scope):</strong> We access your TikTok username and profile icon to display your connected channel inside the LeC Content local management panel.</li>
+                    <li><strong>Video Upload Permission (video.publish scope):</strong> We access this permission to programmatically initialize, upload, and schedule video content from LeC Studio onto your connected TikTok account.</li>
+                </ul>
+
+                <h2>3. How We Store and Protect Your Data</h2>
+                <p><strong>Strict Local Storage Policy:</strong> Unlike SaaS products, <strong>LeC Content</strong> is an internal utility designed to run locally. All authorization tokens, client credentials, and metadata are stored entirely on the local storage of your host machine (specifically inside the local configuration files like <code>tokens.json</code> and databases like <code>reporting.db</code>).</p>
+                <p>We do not transmit your credentials, access tokens, or personal data to any external server. All API communication occurs directly between your local machine and the official TikTok API endpoints (<code>https://open.tiktokapis.com</code>).</p>
+
+                <h2>4. Sharing of Data</h2>
+                <p>We do not sell, rent, trade, or share your access tokens, profile information, or video content with any third party. Data is only used to fulfill the automated publishing actions requested by authorized users of LeC Studio.</p>
+
+                <h2>5. User Control and Data Deletion</h2>
+                <p>You have full control over your connected accounts. You can revoke authorization for <strong>LeC Content</strong> at any time by:</p>
+                <ul>
+                    <li>Going to your TikTok account settings, navigating to authorized apps, and removing permissions for <strong>LeC Content</strong>.</li>
+                    <li>Deleting the locally stored token file (<code>tokens.json</code>) from your installation directory, which immediately destroys all access credentials.</li>
+                </ul>
+
+                <h2>6. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time to reflect changes in our operational procedures or regulations. Any changes will be posted directly on this page with an updated modification date.</p>
+
+                <h2>7. Contact Us</h2>
+                <p>If you have any questions or concerns regarding this Privacy Policy, please contact our internal IT department or reach us via email at <code>admin@lecdancestudio.com</code>.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-wrap">
+            <div>
+                <div class="footer-logo">LeC Content</div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px;">Internal post management and scheduling system for LeC Studio channels.</p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 LeC Studio. All rights reserved. "LeC Content" is an internal automation software.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

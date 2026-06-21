@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - LeC Content</title>
+    <meta name="description" content="Terms of Service for LeC Content integration with TikTok Content Posting API.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0c0c0e;
+            --card-bg: rgba(26, 26, 36, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff007f 0%, #ff5252 100%);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Content Section */
+        .content {
+            padding: 5rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 3rem;
+            backdrop-filter: blur(15px);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00f2fe;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 4rem 0 3rem 0;
+            background: rgba(10, 10, 12, 0.95);
+            margin-top: 5rem;
+        }
+
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .content-box {
+                padding: 1.5rem;
+            }
+            .header-wrap, .footer-wrap {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 1.5rem;
+            }
+            nav a {
+                margin: 0 1rem;
+            }
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .footer-links a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-wrap">
+            <a href="index.html" class="logo">
+                LeC Content <span class="logo-dot"></span>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html" style="color: #ffffff;">Terms of Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <h1>Terms of Service</h1>
+            <p class="meta">Last updated: June 21, 2026</p>
+
+            <div class="content-box">
+                <h2>1. Agreement to Terms</h2>
+                <p>By using <strong>LeC Content</strong> (an internal content scheduler and publisher developed for <strong>LeC Studio</strong>), you agree to comply with and be bound by these Terms of Service. If you do not agree, please do not use this application.</p>
+
+                <h2>2. Description of Service</h2>
+                <p><strong>LeC Content</strong> is an internal content management system that integrates with the TikTok Content Posting API. It allows authorized users to manage, format, and publish video content to connected TikTok accounts. This service is intended strictly for internal business operations and marketing purposes for the LeC Studio brands.</p>
+
+                <h2>3. User Responsibilities</h2>
+                <p>When using <strong>LeC Content</strong>, you agree that you will:</p>
+                <ul>
+                    <li>Use the service in accordance with all applicable laws and regulations.</li>
+                    <li>Ensure that all video content and captions uploaded comply with the TikTok Community Guidelines and Terms of Service.</li>
+                    <li>Keep your local installation and local access tokens secure.</li>
+                </ul>
+
+                <h2>4. Intellectual Property</h2>
+                <p>All software logic, designs, databases, and structural assets within <strong>LeC Content</strong> are the exclusive property of LeC Studio. You may not copy, modify, distribute, or reverse-engineer the source files without explicit written consent from the administrators of LeC Studio.</p>
+
+                <h2>5. Disclaimer of Warranty</h2>
+                <p><strong>LeC Content</strong> is provided "as is" and "as available" without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+                <p>We do not guarantee that the tool will be uninterrupted, error-free, or that video publications will succeed 100% of the time, as services depend heavily on external network stability and TikTok API availability.</p>
+
+                <h2>6. Limitation of Liability</h2>
+                <p>In no event shall LeC Studio, its developers, or its affiliates be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use of or inability to use this tool, including but not limited to TikTok account suspension, API rate-limiting, or loss of posting access.</p>
+
+                <h2>7. Governing Law</h2>
+                <p>These Terms of Service shall be governed by and construed in accordance with the laws of Vietnam, without regard to its conflict of law provisions.</p>
+
+                <h2>8. Contact Information</h2>
+                <p>If you have any questions or require administrative support, please contact the LeC Studio technical team at <code>admin@lecdancestudio.com</code>.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-wrap">
+            <div>
+                <div class="footer-logo">LeC Content</div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem; max-width: 300px;">Internal post management and scheduling system for LeC Studio channels.</p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 LeC Studio. All rights reserved. "LeC Content" is an internal automation software.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
